@@ -1250,13 +1250,26 @@
         function siguientePregunta() {
             preguntaActual++;
             
-            // CORRECCIÓN: Verificar si es la última pregunta
             if (preguntaActual < preguntasActuales.length) {
                 mostrarPregunta();
             } else {
-                // Si es la última pregunta, terminar el juego
                 terminarJuego();
             }
+            
+            // ⬇️⬇️⬇️ AGREGAR ESTO AL FINAL - SOLUCIÓN PARA APP INVENTOR ⬇️⬇️⬇️
+            // Verificar si es el final del juego
+            if (preguntaActual >= preguntasActuales.length - 1) {
+                // Enviar señal a App Inventor para recargar
+                if (window.AppInventor) {
+                    window.AppInventor.setWebViewString("recargar_pagina");
+                } else {
+                    // Fallback: recargar después de 2 segundos
+                    setTimeout(function() {
+                        location.reload();
+                    }, 2000);
+                }
+            }
+            // ⬆️⬆️⬆️ FIN DE LA SOLUCIÓN ⬆️⬆️⬆️
         }
 
         function terminarJuego() {
